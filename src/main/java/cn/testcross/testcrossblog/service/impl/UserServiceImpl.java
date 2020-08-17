@@ -17,6 +17,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         try{
+            if(userMapper.selectByPrimaryKey(user.getUserId())!=null)
+                user.setUserId(null);
             userMapper.insert(user);
         }catch (Exception e){
             System.err.println("addUser:error");

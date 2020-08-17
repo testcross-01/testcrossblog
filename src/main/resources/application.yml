@@ -9,3 +9,6 @@ mybatis:
   type-aliases-package: cn.testcross.testcrossblog.bean
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
+
+server:
+  port: 8020

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "User测试")
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class BackUserController {
     @Autowired
     UserService userService;

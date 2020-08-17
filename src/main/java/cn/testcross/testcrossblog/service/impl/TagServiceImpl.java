@@ -1,12 +1,12 @@
 package cn.testcross.testcrossblog.service.impl;
 
 import cn.testcross.testcrossblog.bean.*;
-import cn.testcross.testcrossblog.mapper.ArticleMapper;
 import cn.testcross.testcrossblog.mapper.ArticleTagRefMapper;
 import cn.testcross.testcrossblog.mapper.TagMapper;
 import cn.testcross.testcrossblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,6 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
     @Autowired
     TagMapper tagMapper;
-
-    @Autowired
-    ArticleMapper articleMapper;
 
     @Autowired
     ArticleTagRefMapper articleTagRefMapper;
@@ -31,11 +28,14 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteTagById(Integer id) {
         if(id==null)return;
-        TagExample tagExample=new TagExample();
-        tagExample.createCriteria().andTagIdEqualTo(id);
-        tagMapper.deleteByExample(tagExample);
+        tagMapper.deleteByPrimaryKey(id);
+        ArticleTagRefExample articleTagRefExample=new ArticleTagRefExample();
+        articleTagRefExample.createCriteria().andTagIdEqualTo(id);
+        articleTagRefMapper.deleteByExample(articleTagRefExample);
+
     }
 
     @Override
@@ -55,14 +55,14 @@ public class TagServiceImpl implements TagService {
 //    }
 
     @Override
-    public List<Article> queryArticleById(Integer id) {
+    public List<Tag> queryTagByArticleId(Integer id) {
         ArticleTagRefExample articleTagRefExample=new ArticleTagRefExample();
-        articleTagRefExample.createCriteria().andTagIdEqualTo(id);
+        articleTagRefExample.createCriteria().andArticleIdEqualTo(id);
         List<ArticleTagRef> articleTagRefs= articleTagRefMapper.selectByExample(articleTagRefExample);
-        List<Article> articleList=new ArrayList<Article>();
+        List<Tag> articleList=new ArrayList<Tag>();
         for (ArticleTagRef articleTagRef:
              articleTagRefs) {
-            articleList.add(articleMapper.selectByPrimaryKey(articleTagRef.getArticleId()));
+            articleList.add(tagMapper.selectByPrimaryKey(articleTagRef.getTagId()));
         }
         return articleList;
     }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "Tag测试")
-@RequestMapping("/Tag")
+@RequestMapping("/tag")
 public class BackTagController {
 
     @Autowired
@@ -46,5 +46,8 @@ public class BackTagController {
         return  new ResponseEntity(tagService.queryAllTag(),HttpStatus.OK);
     }
 
-
+    @GetMapping("/article/{id}")
+    public ResponseEntity getTagsByArticleId(@PathVariable("id") Integer id){
+        return new ResponseEntity(tagService.queryTagByArticleId(id),HttpStatus.OK);
+    }
 }

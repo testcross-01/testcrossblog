@@ -23,7 +23,7 @@ public interface TagService {
      * @param id
      * @return
      */
-    List<Article> queryArticleById(Integer id);
+    List<Tag> queryTagByArticleId(Integer id);
 
     /**
      * 查询所有tag
