@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 本地插件，自动注解 @Data -->
+        <plugin type="com.cy.mybatis.generator.lombok.plugins.LombokPlugin"/>
+        <!-- 本地插件，生成数据库注释 -->
+        <plugin type="com.cy.mybatis.generator.lombok.plugins.CommentPlugin"/>
+
+        <!-- ===================== 序列化      toString  ======================== -->
+        <!-- <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+              <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+         -->
+        <!-- 配置数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/tcblog"
+                        userId="root"
+                        password="123">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 指定pojo的生成位置 -->
+        <javaModelGenerator targetPackage="cn.testcross.testcrossblog.bean" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 指定sql映射文件的生成位置 -->
+        <sqlMapGenerator targetPackage="mybatis/mapper"  targetProject="src/main/resources" >
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 生成dao接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.testcross.testcrossblog.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 指定逆向生成哪张表 -->
+        <table schema="DB2ADMIN" tableName="article" domainObjectName="Article" >
+            <columnOverride column="article_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="article_summary" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </table>
+        <table schema="DB2ADMIN" tableName="article_category_ref" domainObjectName="ArticleCategoryRef" >
+        </table>
+        <table schema="DB2ADMIN" tableName="article_tag_ref" domainObjectName="ArticleTagRef" >
+        </table>
+        <table schema="DB2ADMIN" tableName="category" domainObjectName="Category" >
+        </table>
+        <table schema="DB2ADMIN" tableName="comment" domainObjectName="Comment" >
+        </table>
+        <table schema="DB2ADMIN" tableName="tag" domainObjectName="Tag" >
+        </table>
+        <table schema="DB2ADMIN" tableName="tc_user" domainObjectName="User" >
+        </table>
+    </context>
+</generatorConfiguration>
