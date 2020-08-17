@@ -12,6 +12,7 @@
     <artifactId>testcrossblog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>testcrossblog</name>
+    <packaging>jar</packaging>
     <description>my frist blog</description>
 
     <properties>

@@ -93,4 +93,10 @@ public interface ArticleMapper {
      * @mbggenerated Sun Aug 16 21:39:30 GMT+08:00 2020
      */
     int updateByPrimaryKey(Article record);
+
+    /**
+     * 查询不带评论的文章
+     * @return
+     */
+    List<Article> selectSimpleArticles();
 }

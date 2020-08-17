@@ -411,5 +411,8 @@
 
 
   <!-- Your codes goes here!!! -->
-  
+  <select id="selectSimpleArticles" resultMap="BaseResultMap">
+    select article_id,article_user_id,article_title,article_create_time
+    from article
+  </select>
 </mapper>
